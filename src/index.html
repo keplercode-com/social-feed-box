@@ -25,7 +25,7 @@
 	   }(document, 'script', 'facebook-jssdk'));
 	</script>
 	
-	<input type="button" onclick="info_append()">
+	<input type="button" onclick="info_get()">
 	
 	<div id="result"></div>
 
@@ -56,11 +56,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script type="text/javascript">
 		var source="keplercode";
-		var limit=10;
-
-
-		var post_links=[];
-
+		var limit=5;
+		var access_token="217118902086318|LnQ-Eb3kR0-4uCo3xZJ93UbUans"
 
 		function contact_window_show() {
 			document.getElementById('shaking-button').style.display = 'none';
@@ -72,18 +69,25 @@
 			document.getElementById('feed-form').style.display = 'none';
 		}
 
-		function info_append(){
+		function info_get(){
+			$.get( "https://graph.facebook.com/"+source+"?fields=posts.limit("+limit+"){permalink_url}&access_token="+access_token,
+			function(data){
+				var post_links=[];
+				data.posts.data.forEach(function(item){
+					post_links.push(item.permalink_url);
+				});
+				info_append(post_links);
+			});			
+		}
 
-
-			$.get( "https://graph.facebook.com/"+source+"?fields=posts.limit("+limit+"){permalink_url}&access_token=217118902086318|LnQ-Eb3kR0-4uCo3xZJ93UbUans", function( data ) {
-			console.log(data);
-			result=data;
-			block=document.getElementById('result');
-			data.posts.data.forEach(function(item){post_links.push(item.permalink_url)})
-			});
-			
+		function info_append(post_links){			
 			post_links.forEach(function(item){
-				$('#result').a
+				var a = document.createElement("div");
+				a.className="postcontainer";
+				a.innerHTML='<div class="fb-post" data-href="'+item+'" data-width="350"></div>'
+				//a.innerHTML=item.toString();
+				document.getElementById("result").appendChild(a);
+				//$('#result').append(item);
 			});
 		}
 	</script>
