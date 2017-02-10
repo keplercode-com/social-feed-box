@@ -4,29 +4,13 @@
 <head>
 	<title>test</title>
 	<link rel="stylesheet" href="css/style.min.css">
+	<script>
+		window.onload = function () {
+			info_get();
+        }
+	</script>
 </head>
 <body>
-	<script>
-	  window.fbAsyncInit = function() {
-	    FB.init({
-	      appId      : '217118902086318',
-	      xfbml      : true,
-	      version    : 'v2.8'
-	    });
-	    FB.AppEvents.logPageView();
-	  };
-
-	  (function(d, s, id){
-	     var js, fjs = d.getElementsByTagName(s)[0];
-	     if (d.getElementById(id)) {return;}
-	     js = d.createElement(s); js.id = id;
-	     js.src = "//connect.facebook.net/en_US/sdk.js";
-	     fjs.parentNode.insertBefore(js, fjs);
-	   }(document, 'script', 'facebook-jssdk'));
-	</script>
-	
-	<input type="button" onclick="info_get()">
-	
 	<div id="result"></div>
 
 	<div class="popup-box">
@@ -37,26 +21,14 @@
 			<div class="feed-form-header">News feed:
 				<span class="action-element" onclick="contact_window_hide()">&#10006</span>
 			</div>
-			<div class="form-content">
-				<div class="postcontainer">  
-					<div class="fb-post" 
-					  data-href="https://www.facebook.com/lvivitcluster/posts/1682271608465997"
-					  data-width="350">
-					</div>
-				</div>
-				<div class="postcontainer">  
-					<div class="fb-post" 
-					  data-href="https://www.facebook.com/keplercode/posts/370613473299403"
-					  data-width="350">
-					</div>
-				</div>
+			<div id="form-content" class="form-content">
 			</div>
 		</div>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script type="text/javascript">
-		var source="keplercode";
-		var limit=5;
+		var source="cocacola";
+		var limit=10;
 		var access_token="217118902086318|LnQ-Eb3kR0-4uCo3xZJ93UbUans"
 
 		function contact_window_show() {
@@ -85,10 +57,26 @@
 				var a = document.createElement("div");
 				a.className="postcontainer";
 				a.innerHTML='<div class="fb-post" data-href="'+item+'" data-width="350"></div>'
-				//a.innerHTML=item.toString();
-				document.getElementById("result").appendChild(a);
-				//$('#result').append(item);
+				document.getElementById("form-content").appendChild(a);
+
 			});
+
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '217118902086318',
+                    xfbml      : true,
+                    version    : 'v2.8'
+                });
+                FB.AppEvents.logPageView();
+            };
+
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
 		}
 	</script>
 </body>
