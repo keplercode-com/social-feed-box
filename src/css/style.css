@@ -4,11 +4,14 @@ body{
 }
 
 .postcontainer{
-
 }
 
 #feed-form{
     display: none;
+    width: 367px;
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 .popup-box{
@@ -20,17 +23,26 @@ body{
 }
 
 .feed-form-header{
-    background: orange;
+    overflow: hidden;
+    background: #eb592a;
     padding: 0.5em;
     font-weight: 700;
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: white;
+    position: relative;
 }
 
+.feed-form-header span{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
 .feed-form-header .action-element{
+    padding: 0.6em;
     cursor: pointer;
-    float: right;
+    right: 0%;
+    outline: none;
 }
 
 .action-element:hover{
@@ -39,17 +51,29 @@ body{
 
 
 .form-content{
+    position: relative;
     height: 25em;
     overflow: auto;
 }
 
+
+#form-loading img{
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    left: 50%;
+    transform: translateX(-50%);
+    height: auto;
+    width: 5em;
+}
+
 .buttonshake{
         margin: 5px;
-        background: orange;
+        background: #eb592a;
         padding: 0.5em 3em 0.5em 3em;
         font-weight: 700;
         color: white;
-        border-radius: 0.2em;
+        border-radius: 0.4em;
         border: none;
 
         animation-name: shake;

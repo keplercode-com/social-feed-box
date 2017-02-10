@@ -4,30 +4,32 @@
 <head>
 	<title>test</title>
 	<link rel="stylesheet" href="css/style.min.css">
-	<script>
-		window.onload = function () {
-			info_get();
-        }
+	<script async>
+
+        window.addEventListener('DOMContentLoaded', function() {
+            info_get(); // 1st
+        }, true);
 	</script>
 </head>
 <body>
-	<div id="result"></div>
-
 	<div class="popup-box">
 		<div id="shaking-button" class="buttonwrapper">
 			<button onclick="contact_window_show()" class="buttonshake">News feed</button>
 		</div>
-		<div id="feed-form">
+		<div class="feed-form" id="feed-form">
 			<div class="feed-form-header">News feed:
 				<span class="action-element" onclick="contact_window_hide()">&#10006</span>
 			</div>
 			<div id="form-content" class="form-content">
+				<div id="form-loading">
+					<img src="./img/ring-alt.svg" alt="">
+				</div>
 			</div>
 		</div>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script type="text/javascript">
-		var source="cocacola";
+		var source="keplercode";
 		var limit=10;
 		var access_token="217118902086318|LnQ-Eb3kR0-4uCo3xZJ93UbUans"
 
@@ -58,7 +60,6 @@
 				a.className="postcontainer";
 				a.innerHTML='<div class="fb-post" data-href="'+item+'" data-width="350"></div>'
 				document.getElementById("form-content").appendChild(a);
-
 			});
 
             window.fbAsyncInit = function() {
@@ -78,5 +79,8 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
 		}
+        window.onload  = function () {
+            document.getElementById("form-loading").style.display='none';
+        }
 	</script>
 </body>
