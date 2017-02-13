@@ -17,6 +17,8 @@ window.onload  = function () {
     document.getElementById("form-loading").style.display='none';
 }
 
+
+
 function info_get(){
     switch (platform){
         case 'facebook':

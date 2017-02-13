@@ -9,6 +9,8 @@ var gulp = require('gulp'),
 	cssmin = require('gulp-cssmin'),
   	connect = require('gulp-connect'),
   	ngrok = require('ngrok');
+var uglify = require('gulp-uglify'); // Minify JavaScript
+var imagemin = require('gulp-imagemin'); // Minify images
 
 var site      = '';
 var portVal   = 3000;
@@ -49,24 +51,25 @@ gulp.task('connect', function() {
 gulp.task('js',function(){
    return gulp.src('src/js/*.js')
        .pipe(gulp.dest('app/js/'))
-       .pipe(minify({
-           ext:{
-               src:'.js',
-               min:'.js'
-           },
-           exclude: ['tasks'],
-           ignoreFiles: ['.combo.js', '-min.js']
-       }))
+       .pipe(uglify())
        .pipe(connect.reload());
 });
 
+gulp.task('images', function() {
+    gulp.src('./src/img/*')
+        .pipe(imagemin({
+            progressive: true
+        }))
+        .pipe(gulp.dest('./app/img'));
+});
 
-gulp.task('build', ['css','html','js']);
+gulp.task('build', ['css','html','js','images']);
 
 gulp.task('watch', function() {
 	gulp.watch('src/css/*.css', ['css'])
 	gulp.watch('src/index.html',['html'])
     gulp.watch('src/js/*.js',['js'])
+    gulp.watch('src/img/*',['images'])
 });
 
 

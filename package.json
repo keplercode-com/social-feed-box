@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "gulp": "gulp",
-    "depoy" : "gulp ngrok-url"
+    "depoy": "gulp ngrok-url"
   },
   "author": "",
   "license": "ISC",
@@ -17,9 +17,11 @@
     "gulp-connect": "^5.0.0",
     "gulp-cssmin": "^0.1.7",
     "gulp-htmlmin": "^3.0.0",
+    "gulp-imagemin": "^3.1.1",
     "gulp-livereload": "^3.8.1",
     "gulp-minify": "0.0.15",
     "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.1",
     "gulp-watch": "^4.3.11",
     "ngrok": "^2.2.6"
   }
