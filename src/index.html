@@ -3,13 +3,8 @@
 
 <head>
 	<title>test</title>
-	<link rel="stylesheet" href="css/style.min.css">
-	<script async>
-
-        window.addEventListener('DOMContentLoaded', function() {
-            info_get(); // 1st
-        }, true);
-	</script>
+	<link rel="stylesheet" href="css/newsFeedBox.min.css">
+	<script src="https://platform.twitter.com/widgets.js"></script>
 </head>
 <body>
 	<div class="popup-box">
@@ -28,59 +23,12 @@
 		</div>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<script type="text/javascript">
-		var source="keplercode";
-		var limit=10;
-		var access_token="217118902086318|LnQ-Eb3kR0-4uCo3xZJ93UbUans"
+	<script type="text/javascript" src="./js/NewsFeedBox.js"></script>
+	<script>
+        window.addEventListener('DOMContentLoaded', function() {
+           info_get(); // 1st
+        }, true);
 
-		function contact_window_show() {
-			document.getElementById('shaking-button').style.display = 'none';
-			document.getElementById('feed-form').style.display = 'block';
-		}
 
-		function contact_window_hide() {
-			document.getElementById('shaking-button').style.display = 'block';
-			document.getElementById('feed-form').style.display = 'none';
-		}
-
-		function info_get(){
-			$.get( "https://graph.facebook.com/"+source+"?fields=posts.limit("+limit+"){permalink_url}&access_token="+access_token,
-			function(data){
-				var post_links=[];
-				data.posts.data.forEach(function(item){
-					post_links.push(item.permalink_url);
-				});
-				info_append(post_links);
-			});			
-		}
-
-		function info_append(post_links){			
-			post_links.forEach(function(item){
-				var a = document.createElement("div");
-				a.className="postcontainer";
-				a.innerHTML='<div class="fb-post" data-href="'+item+'" data-width="350"></div>'
-				document.getElementById("form-content").appendChild(a);
-			});
-
-            window.fbAsyncInit = function() {
-                FB.init({
-                    appId      : '217118902086318',
-                    xfbml      : true,
-                    version    : 'v2.8'
-                });
-                FB.AppEvents.logPageView();
-            };
-
-            (function(d, s, id){
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) {return;}
-                js = d.createElement(s); js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-		}
-        window.onload  = function () {
-            document.getElementById("form-loading").style.display='none';
-        }
 	</script>
 </body>

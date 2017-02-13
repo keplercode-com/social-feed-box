@@ -46,12 +46,27 @@ gulp.task('connect', function() {
   });
 });
 
+gulp.task('js',function(){
+   return gulp.src('src/js/*.js')
+       .pipe(gulp.dest('app/js/'))
+       .pipe(minify({
+           ext:{
+               src:'.js',
+               min:'.js'
+           },
+           exclude: ['tasks'],
+           ignoreFiles: ['.combo.js', '-min.js']
+       }))
+       .pipe(connect.reload());
+});
 
-gulp.task('build', ['css','html']);
+
+gulp.task('build', ['css','html','js']);
 
 gulp.task('watch', function() {
 	gulp.watch('src/css/*.css', ['css'])
 	gulp.watch('src/index.html',['html'])
+    gulp.watch('src/js/*.js',['js'])
 });
 
 
