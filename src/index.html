@@ -3,12 +3,16 @@
 
 <head>
 	<title>test</title>
-	<link rel="stylesheet" href="css/newsFeedBox.min.css">
+	<link rel="stylesheet" href="css/newsFeedBox.css">
 	<script src="https://platform.twitter.com/widgets.js"></script>
-
+	<script src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+	<style>
+	</style>
 </head>
 
 <body>
+
+
 	<div id="container"></div>
 	<div class="popup-box">
 		<div id="shaking-button" class="buttonwrapper">
@@ -19,9 +23,12 @@
 			<div class="feed-form-header">News feed:
 				<span class="action-element" onclick="contact_window_hide()">&#10006</span>
 			</div>
-			<div id="form-content" class="form-content">
+			<div class="form-content">
 				<div id="form-loading">
 					<img src="./img/ring-alt.svg" alt="">
+				</div>
+				<div id="form-content">
+
 				</div>
 			</div>
 		</div>
@@ -31,59 +38,9 @@
 	<script>
         window.addEventListener('DOMContentLoaded', function() {
            info_get(); // 1st
-            var invocation = new XMLHttpRequest();
-            getPhotos();
-            //  var url = 'https://api.instagram.com/oembed/?maxwidth=350&callback=callbfunc(data)&url=http://instagr.am/p/fA9uwTtkSN/';
-
-			// var url = "https://api.instagram.com/v1/users/self/media/recent/?access_token=2881888039.fcdc991.945a7e2b197a429cba59f302c3698bb3&format=json";
         }, true);
-
-        var token = '2881888039.fcdc991.945a7e2b197a429cba59f302c3698bb3', // learn how to obtain it below
-            userid = 'self', // User ID - get it in source HTML of your Instagram profile or look at the next example :)
-            num_photos = 4; // how much photos do you want to get
-
-
-		function getPhotos() {
-		    var links=[];
-            $.ajax({
-                url: 'https://api.instagram.com/v1/users/' + userid + '/media/recent', // or /users/self/media/recent for Sandbox
-                dataType: 'jsonp',
-                type: 'GET',
-                data: {access_token: token, count: num_photos},
-                success: function(data){
-                    //console.log(data);
-                    for( x in data.data ){
-                     	links.push(data.data[x].link);// - Instagram post URL
-						console.log(links[x]);
-                    }
-                    appendPhotos();
-                },
-                error: function(data){
-                    console.log(data); // send the error notifications to console
-                }
-            });
-			console.log(links);
-			//url=
-			function appendPhotos() {
-			    for(x in links){
-					$.ajax({
-						url: 'https://api.instagram.com/oembed?maxwidth=350&url='+links[x],
-						dataType: 'jsonp',
-						type: 'GET',
-						success: function(data){
-							console.log();
-							//document.getElementById('container').appendChild(data.html);
-							$('#container').append(data.html);
-						},
-						error: function(data){
-							console.log(data); // send the error notifications to console
-						}
-					});
-                }
-            }
-			
-        }
 
 
 		</script>
+
 </body>

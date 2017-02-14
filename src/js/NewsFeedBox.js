@@ -1,7 +1,20 @@
+var platform='reddit'; //facebook / twitter / reddit / instagram
+
+
 var source="TechRepublic";
 var limit=10;
-var access_token="217118902086318|LnQ-Eb3kR0-4uCo3xZJ93UbUans"
-var platform='twitter'; //facebook / twitter
+var access_token="217118902086318|LnQ-Eb3kR0-4uCo3xZJ93UbUans";
+
+
+//instagram settings
+var token = '2881888039.fcdc991.945a7e2b197a429cba59f302c3698bb3', // insta acces token
+    userid = 'self', // works only with "self" for now
+    num_photos = 4; // limit of instagram photos
+
+//reddit settings
+var subreddit='all';
+var feedtype='hot'; // hot / new / rising / controversial / top
+
 
 function contact_window_show() {
     document.getElementById('shaking-button').style.display = 'none';
@@ -14,9 +27,12 @@ function contact_window_hide() {
 }
 
 window.onload  = function () {
-    document.getElementById("form-loading").style.display='none';
+    hideLoader();
 }
 
+function hideLoader() {
+    document.getElementById("form-loading").style.display='none';
+}
 
 
 function info_get(){
@@ -26,6 +42,12 @@ function info_get(){
             break;
         case 'twitter':
             TwitterInfoGet();
+            break;
+        case 'instagram':
+            InsagramGetPhotos();
+            break;
+        case 'reddit':
+            RedditInfoGet();
             break;
         default:
             console.log('Platform described incorrectly!');
@@ -44,7 +66,7 @@ function TwitterInfoGet(){
             width: '350',
             chrome: 'noheader'
         }).then(function (el) {
-        document.getElementById("form-loading").style.display='none';
+        hideLoader();
     });
 }
 
@@ -86,3 +108,87 @@ function FBInfoAppend(post_links){
 }
 
 
+function InsagramGetPhotos() {
+    var links=[];
+    $.ajax({
+        url: 'https://api.instagram.com/v1/users/' + userid + '/media/recent', // or /users/self/media/recent for Sandbox
+        dataType: 'jsonp',
+        type: 'GET',
+        data: {access_token: token, count: num_photos},
+        success: function(data){
+
+            for( x in data.data ){
+                links.push(data.data[x].link);// - Instagram post URL
+
+            }
+            appendPhotos();
+        },
+        error: function(data){
+            console.log(data); // send the error notifications to console
+        }
+    });
+
+    //url=
+    function appendPhotos() {
+        var htmlElementsCollection=[];
+        succed=0;
+        for(x in links){
+            $.ajax({
+                url: 'https://api.instagram.com/oembed?maxwidth=346&url='+links[x],
+                dataType: 'jsonp',
+                type: 'GET',
+                async: false,
+                success: function(data){
+                    succed+=1;
+                    htmlElementsCollection.push(data.html);
+                    if(succed==num_photos){
+                        hideLoader();
+                        orderedAppend();
+                    }
+                    //$('#form-content').append(data.html);
+                },
+                error: function(data){
+                    console.log(data); // send the error notifications to console
+                }
+            });
+        }
+
+
+        function orderedAppend() {
+            tmp=htmlElementsCollection.slice(0); //clone html elements array
+            for(x in htmlElementsCollection){
+                for(y in htmlElementsCollection){
+                    if(tmp[x].search(links[y]) > 0){
+                      htmlElementsCollection[y]=tmp[x]; //order it by links
+                    }
+                }
+            }
+            for(x in htmlElementsCollection){
+                    $("#form-content").append(htmlElementsCollection[x]); //append ordered array of html elements
+            }
+        }
+    }
+}
+
+function RedditInfoGet() {
+    $.ajax({
+        url: "https://www.reddit.com/r/"+subreddit+"/"+feedtype+".json",
+        success: function(data){
+            console.log(data.data.children);
+            postsAppend(data.data.children)
+        },
+        error: function (data) {
+            console.log(data);
+        }
+
+    });
+
+    function postsAppend(data) {
+        for(index=0;index<limit;index++){
+            html='<blockquote class="reddit-card" data-card-controls="0" data-card-width="350px" data-card-created="1487070719">'+
+                '<a href=https://www.reddit.com'+data[index].data.permalink+'?ref=share&ref_source=embed></a></blockquote>';
+            //for(i=0;i<10;i++)
+            $("#form-content").append(html);
+        }
+    }
+}

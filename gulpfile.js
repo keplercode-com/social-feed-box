@@ -43,7 +43,7 @@ gulp.task('html', function() {
 gulp.task('connect', function() {
   connect.server({
     port: portVal,
-    root: 'app',
+    root: 'src',
     livereload: true //with LiveReload!
   });
 });
@@ -73,4 +73,4 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('default',['connect','build','watch']);
+gulp.task('default',['connect','watch']);
