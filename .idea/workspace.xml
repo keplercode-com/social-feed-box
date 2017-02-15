@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="68bc3a3e-2d43-4352-9bf1-314ff5faa3be" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/js/NewsFeedBox.js" afterPath="$PROJECT_DIR$/app/js/NewsFeedBox.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/js/NewsFeedBox_v1.js" afterPath="$PROJECT_DIR$/app/js/NewsFeedBox_v1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.html" afterPath="$PROJECT_DIR$/src/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/NewsFeedBox.js" afterPath="$PROJECT_DIR$/src/js/NewsFeedBox.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/NewsFeedBox_v1.js" afterPath="$PROJECT_DIR$/src/js/NewsFeedBox_v1.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,8 +32,8 @@
       <file leaf-file-name="NewsFeedBox_v1.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/js/NewsFeedBox_v1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-34">
-              <caret line="42" column="12" lean-forward="false" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="12" />
+            <state relative-caret-position="694">
+              <caret line="66" column="50" lean-forward="true" selection-start-line="66" selection-start-column="50" selection-end-line="66" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -454,12 +450,12 @@
       <workItem from="1486738268221" duration="5521000" />
       <workItem from="1486973860608" duration="22103000" />
       <workItem from="1487057916729" duration="19099000" />
-      <workItem from="1487145363101" duration="18914000" />
+      <workItem from="1487145363101" duration="20851000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69527000" />
+    <option name="totallyTimeSpent" value="71464000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
@@ -674,8 +670,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/js/NewsFeedBox_v1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="42" column="12" lean-forward="false" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="12" />
+        <state relative-caret-position="694">
+          <caret line="66" column="50" lean-forward="true" selection-start-line="66" selection-start-column="50" selection-end-line="66" selection-end-column="50" />
           <folding />
         </state>
       </provider>
