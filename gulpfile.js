@@ -66,10 +66,10 @@ gulp.task('images', function() {
 gulp.task('build', ['css','html','js','images']);
 
 gulp.task('watch', function() {
-	gulp.watch('src/css/*.css', ['css'])
-	gulp.watch('src/index.html',['html'])
-    gulp.watch('src/js/*.js',['js'])
-    gulp.watch('src/img/*',['images'])
+	gulp.watch('src/css/*.css', ['css']);
+	gulp.watch('src/index.html',['html']);
+    gulp.watch('src/js/*.js',['js']);
+    gulp.watch('src/img/*',['images']);
 });
 
 
