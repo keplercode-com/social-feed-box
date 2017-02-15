@@ -174,13 +174,12 @@ function RedditInfoGet() {
     $.ajax({
         url: "https://www.reddit.com/r/"+subreddit+"/"+feedtype+".json",
         success: function(data){
-            console.log(data.data.children);
+         //   console.log(data.data.children);
             postsAppend(data.data.children)
         },
         error: function (data) {
             console.log(data);
         }
-
     });
 
     function postsAppend(data) {

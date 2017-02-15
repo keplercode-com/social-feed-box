@@ -23,14 +23,75 @@ var config={
 function NewsFeedFactory() {
     this.createNewsSource = function (platform) {
         var newsSource;
-        if(platform==='facebook'){
-            newsSource = new FacebookNews();
-        } else if (platform==='twitter') {
-            newsSource = new TwitterNews();
-        } else if (platform==='instagram'){
-            newsSource = new InstagramNews();
-        } else if (platform==='reddit'){
-            newsSource = RedditNews();
+        try {
+            if(platform==='facebook'){
+                newsSource = new FacebookNews();
+            } else if (platform==='twitter') {
+                newsSource = new TwitterNews();
+            } else if (platform==='instagram'){
+                newsSource = new InstagramNews();
+            } else if (platform==='reddit'){
+                newsSource = new RedditNews();
+            } else {
+                throw "Platform described incorrectly";
+            }
+
+            newsSource.platform = platform;
+
+            newsSource.newsContainer = "<p> Empty news container </p>";
+
+            
+            newsSource.setNewsContainer = function (news) {
+                newsSource.newsContainer = news;
+            };
+
+            newsSource.rawData = new Object();
+
+            newsSource.rendered = false;
+
+            return newsSource;
+        }
+        catch(err){
+            console.log(err);
         }
     }
 }
+
+var RedditNews = function(){
+    this.InfoGet = function () {
+        console.log("reddit rawData get");
+        $.ajax({
+            url: "https://www.reddit.com/r/"+config.reddit.source+"/"+config.reddit.feedtype+".json",
+            success: function(data){
+                //console.log(data.data.children);
+                this.rawData=data.data.children;
+                console.log(this.rawData);
+                  //  postsAppend(data.data.children)
+                if(!this.rendered){
+                    console.log("news isn't rendered yet");
+                    CreateNewsContainer();
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    };
+    function CreateNewsContainer() {
+        this.setNewsContainer("");
+        for(index=0;index<config.limit;index++){
+            html='<blockquote class="reddit-card" data-card-controls="0" data-card-width="350px" data-card-created="1487070719">'+
+                '<a href=https://www.reddit.com'+this.rawData[index].data.permalink+'?ref=share&ref_source=embed></a></blockquote>';
+            this.newsContainer+=html;
+        }
+    }
+};
+
+var factory = new NewsFeedFactory();
+
+var ananas = factory.createNewsSource('reddit');
+
+ananas.InfoGet();
+
+$("#container").html=ananas.newsContainer;
+
