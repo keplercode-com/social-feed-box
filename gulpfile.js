@@ -11,6 +11,7 @@ var gulp = require('gulp'),
   	ngrok = require('ngrok');
 var uglify = require('gulp-uglify'); // Minify JavaScript
 var imagemin = require('gulp-imagemin'); // Minify images
+var babel = require('gulp-babel');
 
 var site      = '';
 var portVal   = 3000;
@@ -26,7 +27,7 @@ gulp.task('ngrok-url', function(cb) {
 //css watch concat prefix min
 gulp.task('css', function() {
   gulp.src('src/css/*.css')
-  	.pipe(cssmin())
+  	//.pipe(cssmin())
     .pipe(rename('style.min.css'))
   	.pipe(gulp.dest('app/css/'))
     .pipe(connect.reload());
@@ -35,7 +36,7 @@ gulp.task('css', function() {
 //html minifying
 gulp.task('html', function() {
   return gulp.src('src/*.html')
-    .pipe(htmlmin({collapseWhitespace: true}))
+   // .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(gulp.dest('app/'))
     .pipe(connect.reload());
 });
@@ -43,15 +44,18 @@ gulp.task('html', function() {
 gulp.task('connect', function() {
   connect.server({
     port: portVal,
-    root: 'src',
+    root: 'app',
     livereload: true //with LiveReload!
   });
 });
 
 gulp.task('js',function(){
    return gulp.src('src/js/*.js')
+       .pipe(babel({
+           presets: ['es2015']
+       }))
        .pipe(gulp.dest('app/js/'))
-       .pipe(uglify())
+       //.pipe(uglify())
        .pipe(connect.reload());
 });
 
@@ -73,4 +77,4 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('default',['connect','watch']);
+gulp.task('default',['connect','build','watch']);

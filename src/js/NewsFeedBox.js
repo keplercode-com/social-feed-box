@@ -28,7 +28,7 @@ function contact_window_hide() {
 
 window.onload  = function () {
     hideLoader();
-}
+};
 
 function hideLoader() {
     document.getElementById("form-loading").style.display='none';
@@ -183,11 +183,18 @@ function RedditInfoGet() {
     });
 
     function postsAppend(data) {
-        for(index=0;index<limit;index++){
-            html='<blockquote class="reddit-card" data-card-controls="0" data-card-width="350px" data-card-created="1487070719">'+
+        var html = '';
+        for(var index=0;index<limit;index++){
+            html+='<blockquote class="reddit-card" data-card-controls="0" data-card-width="350px" data-card-created="1487070719">'+
                 '<a href=https://www.reddit.com'+data[index].data.permalink+'?ref=share&ref_source=embed></a></blockquote>';
-            //for(i=0;i<10;i++)
-            $("#form-content").append(html);
         }
+        $("#form-content").append(html);
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s);
+            js.src = "https://embed.redditmedia.com/widgets/platform.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script'));
     }
 }
