@@ -85,7 +85,7 @@ function FBInfoAppend(post_links){
     post_links.forEach(function(item){
         var a = document.createElement("div");
         a.className="postcontainer";
-        a.innerHTML='<div class="fb-post" data-href="'+item+'" data-width="350"></div>'
+        a.innerHTML='<div class="fb-post" data-href="'+item+'" data-width="350"></div>';
         document.getElementById("form-content").appendChild(a);
     });
 

@@ -12,7 +12,8 @@ var config = {
     news_container_id: 'form-content',
     facebook: {
         source: 'keplercode',
-        acces_token: "217118902086318|LnQ-Eb3kR0-4uCo3xZJ93UbUans"
+        acces_token: "217118902086318|LnQ-Eb3kR0-4uCo3xZJ93UbUans",
+        app_id: '217118902086318'
     },
     twitter: {
         source: 'TechRepublic'
@@ -25,6 +26,24 @@ var config = {
         source: 'all',
         feedtype: 'hot'
     }
+};
+
+function contact_window_show() {
+    document.getElementById('shaking-button').style.display = 'none';
+    document.getElementById('feed-form').style.display = 'block';
+}
+
+function contact_window_hide() {
+    document.getElementById('shaking-button').style.display = 'block';
+    document.getElementById('feed-form').style.display = 'none';
+}
+
+function hideLoader() {
+    document.getElementById("form-loading").style.display = 'none';
+}
+
+window.onload = function () {
+    hideLoader();
 };
 
 var NewsSource = function NewsSource() {
@@ -77,10 +96,10 @@ var RedditNewsSource = function (_NewsSource) {
                 if (d.getElementById(id)) {
                     return;
                 }
-                js = d.createElement(s);
+                js = d.createElement(s);js.id = id;
                 js.src = "https://embed.redditmedia.com/widgets/platform.js";
                 fjs.parentNode.insertBefore(js, fjs);
-            })(document, 'script');
+            })(document, 'script', 'reddit-widgets');
         };
 
         _this.getInfo = function () {
@@ -95,13 +114,16 @@ var RedditNewsSource = function (_NewsSource) {
                 _this2.render();
                 _this2.rendered = true;
             };
+            var isRendered = function isRendered() {
+                return _this2.rendered;
+            };
             $.ajax({
                 url: "https://www.reddit.com/r/" + config.reddit.source + "/" + config.reddit.feedtype + ".json",
                 success: function success(data) {
                     setData(data);
                     //this.setRawData(data.data.children);
                     //console.log(this.getRawData());
-                    if (!this.rendered) {
+                    if (!isRendered()) {
                         renderData();
                     }
                 },
@@ -125,6 +147,17 @@ var TwitterNewsSource = function (_NewsSource2) {
         var _this3 = _possibleConstructorReturn(this, (TwitterNewsSource.__proto__ || Object.getPrototypeOf(TwitterNewsSource)).call(this));
 
         _this3.getInfo = function () {
+            (function (d, s, id) {
+                var js,
+                    fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);js.id = id;
+                js.src = "https://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            })(document, 'script', 'twitter-widgets');
+
             twttr.widgets.load();
             twttr.widgets.createTimeline({
                 sourceType: 'profile',
@@ -142,13 +175,86 @@ var TwitterNewsSource = function (_NewsSource2) {
     return TwitterNewsSource;
 }(NewsSource);
 
+var FacebookNewsSource = function (_NewsSource3) {
+    _inherits(FacebookNewsSource, _NewsSource3);
+
+    function FacebookNewsSource() {
+        _classCallCheck(this, FacebookNewsSource);
+
+        var _this4 = _possibleConstructorReturn(this, (FacebookNewsSource.__proto__ || Object.getPrototypeOf(FacebookNewsSource)).call(this));
+
+        _this4.render = function () {
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: config.facebook.app_id,
+                    xfbml: true,
+                    version: 'v2.8'
+                });
+                FB.AppEvents.logPageView();
+            };
+
+            (function (d, s, id) {
+                var js,
+                    fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            })(document, 'script', 'facebook-jssdk');
+        };
+
+        _this4.createNewsContainer = function () {
+            var data = this.getRawData();
+            this.setNewsContainer('');
+            var html = '';
+            data.forEach(function (item) {
+                var tmp = '<div class="postcontainer"><div class="fb-post" data-href="' + item + '" data-width="350"></div></div>';
+                html += tmp;
+            });
+            this.setNewsContainer(html);
+        };
+
+        _this4.getInfo = function () {
+            var _this5 = this;
+
+            var setData = function setData(data) {
+                _this5.setRawData(data);
+                _this5.createNewsContainer();
+            };
+            var renderData = function renderData() {
+                _this5.appendNewsContainer('#' + config.news_container_id);
+                _this5.render();
+                _this5.rendered = true;
+            };
+            var isRendered = function isRendered() {
+                return _this5.rendered;
+            };
+            $.get("https://graph.facebook.com/" + config.facebook.source + "?fields=posts.limit(" + config.limit + "){permalink_url}&access_token=" + config.facebook.acces_token, function (data) {
+                var post_links = [];
+                data.posts.data.forEach(function (item) {
+                    post_links.push(item.permalink_url);
+                });
+                setData(post_links);
+                if (!isRendered()) {
+                    renderData();
+                }
+            });
+        };
+        return _this4;
+    }
+
+    return FacebookNewsSource;
+}(NewsSource);
+
 var NewsFeedFactory = function NewsFeedFactory() {
     this.createNewsSource = function (platform) {
         var newsSource = new NewsSource();
         try {
             switch (platform) {
                 case 'facebook':
-                    newsSource = new FacebookNews();
+                    newsSource = new FacebookNewsSource();
                     break;
                 case 'twitter':
                     newsSource = new TwitterNewsSource();
@@ -174,6 +280,6 @@ var NewsFeedFactory = function NewsFeedFactory() {
 
 var factory = new NewsFeedFactory();
 
-var ananas = factory.createNewsSource('twitter');
+var ananas = factory.createNewsSource('facebook');
 
 ananas.getInfo();
