@@ -9,6 +9,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var config = {
     platform: 'reddit',
     limit: 10,
+    news_container_id: 'form-content',
     facebook: {
         source: 'keplercode',
         acces_token: "217118902086318|LnQ-Eb3kR0-4uCo3xZJ93UbUans"
@@ -27,96 +28,7 @@ var config = {
 };
 
 var NewsSource = function NewsSource() {
-    var newsContainer = "<p> Empty news container </p>";
-    var rawData = new Object();
-
-    return {
-        SetNewsContainer: function SetNewsContainer(data) {
-            newsContainer = data;
-        },
-        GetNewsContainer: function GetNewsContainer() {
-            return newsContainer;
-        },
-        SetRawData: function SetRawData(data) {
-            rawData = data;
-        },
-        GetRawData: function GetRawData() {
-            return rawData;
-        },
-        rendered: false
-    };
-};
-
-var NewsFeedFactory = function NewsFeedFactory() {
-    this.createNewsSource = function (platform) {
-        var newsSource = Object.create(NewsSource());
-        try {
-            switch (platform) {
-                case 'facebook':
-                    newsSource = new FacebookNews();
-                    break;
-                case 'twitter':
-                    newsSource = new TwitterNews();
-                    break;
-                case 'instagram':
-                    newsSource = new InstagramNews();
-                    break;
-                case 'reddit':
-                    newsSource = new RedditNews();
-                    break;
-                default:
-                    throw "Platform described incorrectly";
-            }
-
-            newsSource.platform = platform;
-
-            return newsSource;
-        } catch (err) {
-            console.log(err);
-        }
-    };
-};
-
-var RedditNews = function RedditNews() {
-
-    this.InfoGet = function () {
-        console.log("reddit rawData get");
-        $.ajax({
-            url: "https://www.reddit.com/r/" + config.reddit.source + "/" + config.reddit.feedtype + ".json",
-            success: function success(data) {
-                //console.log(data.data.children);
-                this.SetRawData(data.data.children);
-                console.log(this.GetRawData());
-                //  postsAppend(data.data.children)
-                if (!this.rendered) {
-                    console.log("news isn't rendered yet");
-                    CreateNewsContainer();
-                }
-            },
-            error: function error(data) {
-                console.log(data);
-            }
-        });
-        function CreateNewsContainer() {
-            // this.setNewsContainer("");
-            for (var index = 0; index < config.limit; index++) {
-                var html = '<blockquote class="reddit-card" data-card-controls="0" data-card-width="350px" data-card-created="1487070719">' + '<a href=https://www.reddit.com' + this.rawData[index].data.permalink + '?ref=share&ref_source=embed></a></blockquote>';
-                this.newsContainer += html;
-            }
-        };
-    };
-};
-
-var factory = new NewsFeedFactory();
-
-var ananas = factory.createNewsSource('reddit');
-
-//ananas.InfoGet();
-
-$("#container").html = ananas.newsContainer;
-
-var NSource = function NSource() {
-    _classCallCheck(this, NSource);
+    _classCallCheck(this, NewsSource);
 
     this.newsContainer = "<p> Empty news container </p>";
     this.rawData = { "a": 1 };
@@ -139,13 +51,13 @@ var NSource = function NSource() {
     this.rendered = false;
 };
 
-var RedditNSource = function (_NSource) {
-    _inherits(RedditNSource, _NSource);
+var RedditNewsSource = function (_NewsSource) {
+    _inherits(RedditNewsSource, _NewsSource);
 
-    function RedditNSource() {
-        _classCallCheck(this, RedditNSource);
+    function RedditNewsSource() {
+        _classCallCheck(this, RedditNewsSource);
 
-        var _this = _possibleConstructorReturn(this, (RedditNSource.__proto__ || Object.getPrototypeOf(RedditNSource)).call(this));
+        var _this = _possibleConstructorReturn(this, (RedditNewsSource.__proto__ || Object.getPrototypeOf(RedditNewsSource)).call(this));
 
         _this.createNewsContainer = function () {
             var data = this.getRawData();
@@ -171,14 +83,17 @@ var RedditNSource = function (_NSource) {
             })(document, 'script');
         };
 
-        _this.GetInfo = function () {
+        _this.getInfo = function () {
             var _this2 = this;
 
             var setData = function setData(data) {
                 _this2.setRawData(data);
                 _this2.createNewsContainer();
-                _this2.appendNewsContainer("#form-content");
+            };
+            var renderData = function renderData() {
+                _this2.appendNewsContainer('#' + config.news_container_id);
                 _this2.render();
+                _this2.rendered = true;
             };
             $.ajax({
                 url: "https://www.reddit.com/r/" + config.reddit.source + "/" + config.reddit.feedtype + ".json",
@@ -187,8 +102,7 @@ var RedditNSource = function (_NSource) {
                     //this.setRawData(data.data.children);
                     //console.log(this.getRawData());
                     if (!this.rendered) {
-                        console.log("news isn't rendered yet");
-                        // CreateNewsContainer();
+                        renderData();
                     }
                 },
                 error: function error(data) {
@@ -199,9 +113,67 @@ var RedditNSource = function (_NSource) {
         return _this;
     }
 
-    return RedditNSource;
-}(NSource);
+    return RedditNewsSource;
+}(NewsSource);
 
-var rdt = new RedditNSource();
+var TwitterNewsSource = function (_NewsSource2) {
+    _inherits(TwitterNewsSource, _NewsSource2);
 
-rdt.GetInfo();
+    function TwitterNewsSource() {
+        _classCallCheck(this, TwitterNewsSource);
+
+        var _this3 = _possibleConstructorReturn(this, (TwitterNewsSource.__proto__ || Object.getPrototypeOf(TwitterNewsSource)).call(this));
+
+        _this3.getInfo = function () {
+            twttr.widgets.load();
+            twttr.widgets.createTimeline({
+                sourceType: 'profile',
+                screenName: source
+            }, document.getElementById(config.news_container_id), {
+                width: '350',
+                chrome: 'noheader'
+            }).then(function (el) {
+                hideLoader();
+            });
+        };
+        return _this3;
+    }
+
+    return TwitterNewsSource;
+}(NewsSource);
+
+var NewsFeedFactory = function NewsFeedFactory() {
+    this.createNewsSource = function (platform) {
+        var newsSource = new NewsSource();
+        try {
+            switch (platform) {
+                case 'facebook':
+                    newsSource = new FacebookNews();
+                    break;
+                case 'twitter':
+                    newsSource = new TwitterNewsSource();
+                    break;
+                case 'instagram':
+                    newsSource = new InstagramNews();
+                    break;
+                case 'reddit':
+                    newsSource = new RedditNewsSource();
+                    break;
+                default:
+                    throw "Platform described incorrectly";
+            }
+
+            newsSource.platform = platform;
+
+            return newsSource;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+};
+
+var factory = new NewsFeedFactory();
+
+var ananas = factory.createNewsSource('twitter');
+
+ananas.getInfo();

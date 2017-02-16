@@ -1,124 +1,32 @@
 'use strict';
 
-var config={
-    platform:'reddit',
+var config = {
+    platform: 'reddit',
     limit: 10,
-    facebook:{
+    news_container_id: 'form-content',
+    facebook: {
         source: 'keplercode',
         acces_token: "217118902086318|LnQ-Eb3kR0-4uCo3xZJ93UbUans"
     },
-    twitter:{
+    twitter: {
         source: 'TechRepublic'
     },
-    instagram:{
+    instagram: {
         source: 'self',
         access_token: '2881888039.fcdc991.945a7e2b197a429cba59f302c3698bb3'
     },
-    reddit:{
+    reddit: {
         source: 'all',
         feedtype: 'hot'
     }
 };
 
-
-var NewsSource = function () {
-    var newsContainer = "<p> Empty news container </p>";
-    var rawData = new Object();
-
-    return{
-        SetNewsContainer : function (data) {
-            newsContainer=data;
-        },
-        GetNewsContainer : function () {
-            return newsContainer;
-        },
-        SetRawData : function (data) {
-            rawData = data;
-        },
-        GetRawData : function () {
-            return rawData;
-        },
-        rendered : false
-    }
-};
-
-var NewsFeedFactory = function() {
-    this.createNewsSource = function (platform) {
-        var newsSource = Object.create(NewsSource());
-        try {
-            switch (platform){
-                case 'facebook':
-                    newsSource = new FacebookNews();
-                    break;
-                case 'twitter':
-                    newsSource = new TwitterNews();
-                    break;
-                case 'instagram':
-                    newsSource = new InstagramNews();
-                    break;
-                case 'reddit':
-                    newsSource = new RedditNews();
-                    break;
-                default:
-                    throw "Platform described incorrectly";
-            }
-
-            newsSource.platform = platform;
-
-            return newsSource;
-        }
-        catch(err){
-            console.log(err);
-        }
-    }
-}
-
-var RedditNews = function(){
-
-    this.InfoGet = function () {
-        console.log("reddit rawData get");
-        $.ajax({
-            url: "https://www.reddit.com/r/"+config.reddit.source+"/"+config.reddit.feedtype+".json",
-            success: function(data){
-                //console.log(data.data.children);
-                this.SetRawData(data.data.children);
-                console.log(this.GetRawData());
-                  //  postsAppend(data.data.children)
-                if(!this.rendered){
-                    console.log("news isn't rendered yet");
-                    CreateNewsContainer();
-                }
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-        function CreateNewsContainer (){
-           // this.setNewsContainer("");
-            for(var index=0;index<config.limit;index++){
-                var html='<blockquote class="reddit-card" data-card-controls="0" data-card-width="350px" data-card-created="1487070719">'+
-                    '<a href=https://www.reddit.com'+this.rawData[index].data.permalink+'?ref=share&ref_source=embed></a></blockquote>';
-                this.newsContainer+=html;
-            }
-        };
-    };
-
-};
-
-var factory = new NewsFeedFactory();
-
-var ananas = factory.createNewsSource('reddit');
-
-//ananas.InfoGet();
-
-$("#container").html=ananas.newsContainer;
-
-class NSource{
-    constructor(){
-        this.newsContainer =  "<p> Empty news container </p>";
+class NewsSource {
+    constructor() {
+        this.newsContainer = "<p> Empty news container </p>";
         this.rawData = {"a": 1};
         this.setNewsContainer = function (data) {
-            this.newsContainer=data;
+            this.newsContainer = data;
         };
         this.getNewsContainer = function () {
             return this.newsContainer;
@@ -130,65 +38,123 @@ class NSource{
             return this.rawData;
         };
 
-        this.appendNewsContainer = function(id){
-          $(id).append(this.getNewsContainer());
+        this.appendNewsContainer = function (id) {
+            $(id).append(this.getNewsContainer());
         };
         this.rendered = false;
     }
 }
 
-    class RedditNSource extends NSource {
-        constructor() {
-            super();
-            this.createNewsContainer = function () {
-                let data = this.getRawData();
-                //console.log(data);
-                this.setNewsContainer('');
-                var html = '';
-                for(var index=0;index<config.limit;index++){
-                    html+='<blockquote class="reddit-card" data-card-controls="0" data-card-width="350px" data-card-created="1487070719">'+
-                        '<a href=https://www.reddit.com'+data.data.children[index].data.permalink+'?ref=share&ref_source=embed></a></blockquote>';
+class RedditNewsSource extends NewsSource {
+    constructor() {
+        super();
+        this.createNewsContainer = function () {
+            let data = this.getRawData();
+            //console.log(data);
+            this.setNewsContainer('');
+            var html = '';
+            for (var index = 0; index < config.limit; index++) {
+                html += '<blockquote class="reddit-card" data-card-controls="0" data-card-width="350px" data-card-created="1487070719">' +
+                    '<a href=https://www.reddit.com' + data.data.children[index].data.permalink + '?ref=share&ref_source=embed></a></blockquote>';
+            }
+            this.setNewsContainer(html);
+        };
+
+        this.render = function () {
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
                 }
-                this.setNewsContainer(html);
-            };
+                js = d.createElement(s);
+                js.src = "https://embed.redditmedia.com/widgets/platform.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script'));
+        };
 
-            this.render = function () {
-                (function(d, s, id){
-                    var js, fjs = d.getElementsByTagName(s)[0];
-                    if (d.getElementById(id)) {return;}
-                    js = d.createElement(s);
-                    js.src = "https://embed.redditmedia.com/widgets/platform.js";
-                    fjs.parentNode.insertBefore(js, fjs);
-                }(document, 'script'));
+        this.getInfo = function () {
+            var setData = (data) => {
+                this.setRawData(data);
+                this.createNewsContainer();
             };
-
-            this.GetInfo = function () {
-                var setData = (data) => {
-                    this.setRawData(data);
-                    this.createNewsContainer();
-                    this.appendNewsContainer("#form-content");
-                    this.render();
-                };
-                $.ajax({
-                    url: "https://www.reddit.com/r/" + config.reddit.source + "/" + config.reddit.feedtype + ".json",
-                    success: function (data) {
-                        setData(data);
-                        //this.setRawData(data.data.children);
-                        //console.log(this.getRawData());
-                        if (!this.rendered) {
-                            console.log("news isn't rendered yet");
-                            // CreateNewsContainer();
-                        }
-                    },
-                    error: function (data) {
-                        console.log(data);
+            var renderData = () => {
+                this.appendNewsContainer('#'+config.news_container_id);
+                this.render();
+                this.rendered=true;
+            };
+            $.ajax({
+                url: "https://www.reddit.com/r/" + config.reddit.source + "/" + config.reddit.feedtype + ".json",
+                success: function (data) {
+                    setData(data);
+                    //this.setRawData(data.data.children);
+                    //console.log(this.getRawData());
+                    if (!this.rendered) {
+                       renderData();
                     }
-                });
-            };
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        };
+    }
+}
+
+class TwitterNewsSource extends NewsSource {
+    constructor() {
+        super();
+        this.getInfo = function () {
+            twttr.widgets.load();
+            twttr.widgets.createTimeline(
+                {
+                    sourceType: 'profile',
+                    screenName:  source
+                },
+                document.getElementById(config.news_container_id),
+                {
+                    width: '350',
+                    chrome: 'noheader'
+                }).then(function (el) {
+                hideLoader();
+            });
+        };
+    };
+}
+
+
+var NewsFeedFactory = function () {
+    this.createNewsSource = function (platform) {
+        var newsSource = new NewsSource();
+        try {
+            switch (platform) {
+                case 'facebook':
+                    newsSource = new FacebookNews();
+                    break;
+                case 'twitter':
+                    newsSource = new TwitterNewsSource();
+                    break;
+                case 'instagram':
+                    newsSource = new InstagramNews();
+                    break;
+                case 'reddit':
+                    newsSource = new RedditNewsSource();
+                    break;
+                default:
+                    throw "Platform described incorrectly";
+            }
+
+            newsSource.platform = platform;
+
+            return newsSource;
+        }
+        catch (err) {
+            console.log(err);
         }
     }
+};
 
-    var rdt = new RedditNSource();
+var factory = new NewsFeedFactory();
 
-    rdt.GetInfo();
+var ananas = factory.createNewsSource('twitter');
 
+ananas.getInfo();
