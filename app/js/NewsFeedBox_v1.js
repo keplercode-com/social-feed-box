@@ -7,7 +7,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var config = {
-    platform: 'instagram',
+    timeout: 10000,
+    platform: 'reddit',
     limit: 10,
     news_container_id: 'form-content',
     facebook: {
@@ -26,7 +27,7 @@ var config = {
     },
     reddit: {
         source: 'all',
-        feedtype: 'hot'
+        feedtype: 'new'
     }
 };
 
@@ -145,6 +146,7 @@ var RedditNewsSource = function (_NewsSource) {
                 js.src = "https://embed.redditmedia.com/widgets/platform.js";
                 fjs.parentNode.insertBefore(js, fjs);
             })(document, 'script', 'reddit-widgets');
+            hideLoader();
         };
 
         _this.getInfo = function () {

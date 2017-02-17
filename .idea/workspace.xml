@@ -3,15 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="68bc3a3e-2d43-4352-9bf1-314ff5faa3be" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/css/newsFeedBox.min.css" afterPath="$PROJECT_DIR$/app/css/newsFeedBox.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/css/style.min.css" afterPath="$PROJECT_DIR$/app/css/style.min.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/js/NewsFeedBox.js" afterPath="$PROJECT_DIR$/app/js/NewsFeedBox.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/js/NewsFeedBox_v1.js" afterPath="$PROJECT_DIR$/app/js/NewsFeedBox_v1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/newsFeedBox.css" afterPath="$PROJECT_DIR$/src/css/newsFeedBox.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.html" afterPath="$PROJECT_DIR$/src/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/NewsFeedBox.js" afterPath="$PROJECT_DIR$/src/js/NewsFeedBox.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/NewsFeedBox_v1.js" afterPath="$PROJECT_DIR$/src/js/NewsFeedBox_v1.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,27 +31,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="833">
-              <caret line="49" column="12" lean-forward="false" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="12" />
+            <state relative-caret-position="437">
+              <caret line="47" column="15" lean-forward="false" selection-start-line="47" selection-start-column="15" selection-end-line="47" selection-end-column="15" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NewsFeedBox_v1.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="NewsFeedBox_v1.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/js/NewsFeedBox_v1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="14" lean-forward="true" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+            <state relative-caret-position="236">
+              <caret line="119" column="41" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="41" />
               <folding>
                 <element signature="n#NewsSource#0" expanded="false" />
-                <element signature="n#RedditNewsSource#0" expanded="false" />
                 <element signature="n#TwitterNewsSource#0" expanded="false" />
                 <element signature="n#FacebookNewsSource#0" expanded="false" />
-                <element signature="e#12809#13677#0" expanded="false" />
+                <element signature="e#12852#13720#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -175,8 +168,8 @@
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/src/js/NewsFeedBox.js" />
         <option value="$PROJECT_DIR$/src/js/q.js" />
-        <option value="$PROJECT_DIR$/src/js/NewsFeedBox_v1.js" />
         <option value="$PROJECT_DIR$/src/index.html" />
+        <option value="$PROJECT_DIR$/src/js/NewsFeedBox_v1.js" />
       </list>
     </option>
   </component>
@@ -535,8 +528,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="npm.gulp" />
-        <item index="1" class="java.lang.String" itemvalue="npm.depoy" />
+        <item index="0" class="java.lang.String" itemvalue="npm.depoy" />
+        <item index="1" class="java.lang.String" itemvalue="npm.gulp" />
         <item index="2" class="java.lang.String" itemvalue="Node.js.NewsFeedBox.js" />
         <item index="3" class="java.lang.String" itemvalue="Gulp.js.default" />
         <item index="4" class="java.lang.String" itemvalue="npm.test" />
@@ -559,7 +552,7 @@
       <workItem from="1487057916729" duration="19099000" />
       <workItem from="1487145363101" duration="22396000" />
       <workItem from="1487233381475" duration="26072000" />
-      <workItem from="1487317875996" duration="24969000" />
+      <workItem from="1487317875996" duration="25487000" />
     </task>
     <task id="LOCAL-00001" summary="'twitter functionality added'">
       <created>1487258032875</created>
@@ -582,11 +575,18 @@
       <option name="project" value="LOCAL" />
       <updated>1487326333066</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="&quot;added feature of checking new content and notify user about it on platforms:&#10;facebook, instagram, reddit&quot;">
+      <created>1487345817651</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1487345817651</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124050000" />
+    <option name="totallyTimeSpent" value="124568000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -624,7 +624,8 @@
     <MESSAGE value="'twitter functionality added'" />
     <MESSAGE value="&quot;facebook features added (via factory)&quot;" />
     <MESSAGE value="&quot;all platforms features provided (via factory)&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;all platforms features provided (via factory)&quot;" />
+    <MESSAGE value="&quot;added feature of checking new content and notify user about it on platforms:&#10;facebook, instagram, reddit&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;added feature of checking new content and notify user about it on platforms:&#10;facebook, instagram, reddit&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -655,10 +656,9 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#NewsSource#0" expanded="false" />
-            <element signature="n#RedditNewsSource#0" expanded="false" />
             <element signature="n#TwitterNewsSource#0" expanded="false" />
             <element signature="n#FacebookNewsSource#0" expanded="false" />
-            <element signature="e#12809#13677#0" expanded="false" />
+            <element signature="e#12852#13720#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -685,10 +685,9 @@
           <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
             <element signature="n#NewsSource#0" expanded="false" />
-            <element signature="n#RedditNewsSource#0" expanded="false" />
             <element signature="n#TwitterNewsSource#0" expanded="false" />
             <element signature="n#FacebookNewsSource#0" expanded="false" />
-            <element signature="e#12809#13677#0" expanded="false" />
+            <element signature="e#12852#13720#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -868,14 +867,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gulpfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="31" column="32" lean-forward="true" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/css/style.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
@@ -916,25 +907,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/NewsFeedBox_v1.js">
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="14" lean-forward="true" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
-          <folding>
-            <element signature="n#NewsSource#0" expanded="false" />
-            <element signature="n#RedditNewsSource#0" expanded="false" />
-            <element signature="n#TwitterNewsSource#0" expanded="false" />
-            <element signature="n#FacebookNewsSource#0" expanded="false" />
-            <element signature="e#12809#13677#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="150">
+          <caret line="31" column="32" lean-forward="true" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="49" column="12" lean-forward="false" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="12" />
+        <state relative-caret-position="437">
+          <caret line="47" column="15" lean-forward="false" selection-start-line="47" selection-start-column="15" selection-end-line="47" selection-end-column="15" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/NewsFeedBox_v1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="119" column="41" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="41" />
+          <folding>
+            <element signature="n#NewsSource#0" expanded="false" />
+            <element signature="n#TwitterNewsSource#0" expanded="false" />
+            <element signature="n#FacebookNewsSource#0" expanded="false" />
+            <element signature="e#12852#13720#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

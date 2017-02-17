@@ -1,7 +1,8 @@
 'use strict';
 
 var config = {
-    platform: 'instagram',
+    timeout: 10000,
+    platform: 'reddit',
     limit: 10,
     news_container_id: 'form-content',
     facebook: {
@@ -20,7 +21,7 @@ var config = {
     },
     reddit: {
         source: 'all',
-        feedtype: 'hot'
+        feedtype: 'new'
     }
 };
 
@@ -135,6 +136,7 @@ class RedditNewsSource extends NewsSource {
                 js.src = "https://embed.redditmedia.com/widgets/platform.js";
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'reddit-widgets'));
+            hideLoader();
         };
 
         this.getInfo = function () {
