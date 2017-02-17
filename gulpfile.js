@@ -28,7 +28,7 @@ gulp.task('ngrok-url', function(cb) {
 gulp.task('css', function() {
   gulp.src('src/css/*.css')
   	//.pipe(cssmin())
-    .pipe(rename('style.min.css'))
+    .pipe(rename('newsFeedBox.min.css'))
   	.pipe(gulp.dest('app/css/'))
     .pipe(connect.reload());
 });

@@ -1,4 +1,4 @@
-var platform='reddit'; //facebook / twitter / reddit / instagram
+var platform='instagram'; //facebook / twitter / reddit / instagram
 
 
 var source="TechRepublic";
@@ -7,9 +7,9 @@ var access_token="217118902086318|LnQ-Eb3kR0-4uCo3xZJ93UbUans";
 
 
 //instagram settings
-var token = '2881888039.fcdc991.945a7e2b197a429cba59f302c3698bb3', // insta acces token
+var token = '4658018398.2adf72c.1d840c5a965b406fbfcb2a5673a9fdb8', // insta acces token
     userid = 'self', // works only with "self" for now
-    num_photos = 4; // limit of instagram photos
+    num_photos = 10; // limit of instagram photos
 
 //reddit settings
 var subreddit='all';
@@ -117,7 +117,7 @@ function InsagramGetPhotos() {
         data: {access_token: token, count: num_photos},
         success: function(data){
 
-            for( x in data.data ){
+            for(var x in data.data ){
                 links.push(data.data[x].link);// - Instagram post URL
 
             }
@@ -131,8 +131,8 @@ function InsagramGetPhotos() {
     //url=
     function appendPhotos() {
         var htmlElementsCollection=[];
-        succed=0;
-        for(x in links){
+        var succed=0;
+        for(var x in links){
             $.ajax({
                 url: 'https://api.instagram.com/oembed?maxwidth=346&url='+links[x],
                 dataType: 'jsonp',
@@ -141,7 +141,7 @@ function InsagramGetPhotos() {
                 success: function(data){
                     succed+=1;
                     htmlElementsCollection.push(data.html);
-                    if(succed==num_photos){
+                    if(succed==links.length){
                         hideLoader();
                         orderedAppend();
                     }
@@ -155,15 +155,15 @@ function InsagramGetPhotos() {
 
 
         function orderedAppend() {
-            tmp=htmlElementsCollection.slice(0); //clone html elements array
-            for(x in htmlElementsCollection){
-                for(y in htmlElementsCollection){
+           var  tmp=htmlElementsCollection.slice(0); //clone html elements array
+            for(var x in htmlElementsCollection){
+                for(var y in htmlElementsCollection){
                     if(tmp[x].search(links[y]) > 0){
                       htmlElementsCollection[y]=tmp[x]; //order it by links
                     }
                 }
             }
-            for(x in htmlElementsCollection){
+            for(var x in htmlElementsCollection){
                     $("#form-content").append(htmlElementsCollection[x]); //append ordered array of html elements
             }
         }

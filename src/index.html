@@ -9,10 +9,13 @@
 </head>
 
 <body>
-	<div id="container"></div>
+	<div id="container">
+		<button onclick="startShakingButtonAnimation()">start</button>
+		<button onclick="stopShakingButtonAnimation()"> stop</button>
+	</div>
 	<div class="popup-box">
 		<div id="shaking-button" class="buttonwrapper">
-			<button onclick="contact_window_show()" class="buttonshake">News feed</button>
+			<button onclick="contact_window_show()" id="shake_button" class="buttonshake">News feed<span id="notificator">(new posts!)</span></button>
 		</div>
 
 		<div class="feed-form" id="feed-form">
@@ -31,11 +34,22 @@
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script src="https://platform.twitter.com/widgets.js"> </script>
+	<script src="./js/NewsFeedBox.js"></script>
 	<script src="./js/NewsFeedBox_v1.js"></script>
 	<script>
         window.addEventListener('DOMContentLoaded', function() {
             newsFeedObject.getInfo();
         }, true);
+
+        window.setInterval(function(){
+            if(boxIsClosed){
+            	newsFeedObject.getInfo();
+            }else{
+                console.log("not this time");
+			}
+        }, 60000);
+
+		//info_get();
      </script>
 
 </body>

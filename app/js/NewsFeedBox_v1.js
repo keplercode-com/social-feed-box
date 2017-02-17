@@ -7,11 +7,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var config = {
-    platform: 'reddit',
+    platform: 'instagram',
     limit: 10,
     news_container_id: 'form-content',
     facebook: {
-        source: 'keplercode',
+        source: 'myfeedtest',
         acces_token: "217118902086318|LnQ-Eb3kR0-4uCo3xZJ93UbUans",
         app_id: '217118902086318'
     },
@@ -20,7 +20,9 @@ var config = {
     },
     instagram: {
         source: 'self',
-        access_token: '2881888039.fcdc991.945a7e2b197a429cba59f302c3698bb3'
+        //access_token: '2881888039.fcdc991.945a7e2b197a429cba59f302c3698bb3'
+        access_token: '4658018398.2adf72c.1d840c5a965b406fbfcb2a5673a9fdb8'
+
     },
     reddit: {
         source: 'all',
@@ -28,18 +30,41 @@ var config = {
     }
 };
 
+var boxIsClosed = true;
+
 function contact_window_show() {
     document.getElementById('shaking-button').style.display = 'none';
     document.getElementById('feed-form').style.display = 'block';
+    stopShakingButtonAnimation();
+    hideNotification();
+    boxIsClosed = false;
 }
 
 function contact_window_hide() {
     document.getElementById('shaking-button').style.display = 'block';
     document.getElementById('feed-form').style.display = 'none';
+    boxIsClosed = true;
 }
 
 function hideLoader() {
     document.getElementById("form-loading").style.display = 'none';
+}
+
+function stopShakingButtonAnimation() {
+    document.getElementById("shake_button").style.animationName = 'none';
+}
+
+function startShakingButtonAnimation() {
+    document.getElementById("shake_button").style = '{animation-name: shake;}' + ':hover{ animation-name: none;}';
+}
+
+function startShakingButtonAnimationWithNotification() {
+    startShakingButtonAnimation();
+    document.getElementById('notificator').style.display = 'inline';
+}
+
+function hideNotification() {
+    document.getElementById('notificator').style.display = 'none';
 }
 
 window.onload = function () {
@@ -65,7 +90,26 @@ var NewsSource = function NewsSource() {
     };
 
     this.appendNewsContainer = function () {
-        $('#' + config.news_container_id).append(this.getNewsContainer());
+        $('#' + config.news_container_id).html(this.getNewsContainer());
+    };
+
+    this.compareWithNewData = function (newData) {
+        if (isNaN(this.getRawData().length)) {
+            console.log("raw data is nan", this.getRawData());
+            return false;
+        } else {
+            var oldData = this.getRawData();
+            if (newData.length == oldData.length && newData.every(function (v, i) {
+                return v === oldData[i];
+            })) {
+                console.log("data is equal");
+                return true;
+            } else {
+                console.log("data is not equal");
+                startShakingButtonAnimationWithNotification();
+                return false;
+            }
+        }
     };
     this.rendered = false;
 };
@@ -78,13 +122,15 @@ var RedditNewsSource = function (_NewsSource) {
 
         var _this = _possibleConstructorReturn(this, (RedditNewsSource.__proto__ || Object.getPrototypeOf(RedditNewsSource)).call(this));
 
+        var currentContext = _this;
         _this.createNewsContainer = function () {
             var data = this.getRawData();
             this.setNewsContainer('');
             var html = '';
             for (var index = 0; index < config.limit; index++) {
-                html += '<blockquote class="reddit-card" data-card-controls="0" data-card-width="350px" data-card-created="1487070719">' + '<a href=https://www.reddit.com' + data.data.children[index].data.permalink + '?ref=share&ref_source=embed></a></blockquote>';
+                html += '<blockquote class="reddit-card" data-card-controls="0" data-card-width="350px" data-card-created="1487070719">' + '<a href=https://www.reddit.com' + data[index] + '?ref=share&ref_source=embed></a></blockquote>';
             }
+
             this.setNewsContainer(html);
         };
 
@@ -119,10 +165,17 @@ var RedditNewsSource = function (_NewsSource) {
             $.ajax({
                 url: "https://www.reddit.com/r/" + config.reddit.source + "/" + config.reddit.feedtype + ".json",
                 success: function success(data) {
-                    setData(data);
+                    var linksArray = [];
+                    for (var i in data.data.children) {
+                        linksArray.push(data.data.children[i].data.permalink);
+                    }
+                    if (!currentContext.compareWithNewData(linksArray)) {
+                        setData(linksArray);
+                        currentContext.rendered = false;
+                    };
                     if (!isRendered()) {
                         renderData();
-                    }
+                    };
                 },
                 error: function error(data) {
                     console.log(data);
@@ -180,6 +233,7 @@ var FacebookNewsSource = function (_NewsSource3) {
 
         var _this4 = _possibleConstructorReturn(this, (FacebookNewsSource.__proto__ || Object.getPrototypeOf(FacebookNewsSource)).call(this));
 
+        var currentContext = _this4;
         _this4.render = function () {
             window.fbAsyncInit = function () {
                 FB.init({
@@ -194,11 +248,13 @@ var FacebookNewsSource = function (_NewsSource3) {
                 var js,
                     fjs = d.getElementsByTagName(s)[0];
                 if (d.getElementById(id)) {
+                    // fjs.parentNode.removeChild(d.getElementById(id));
+                    fbAsyncInit();
                     return;
                 }
                 js = d.createElement(s);js.id = id;
                 js.src = "https://connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
+                fjs.parentNode.appendChild(js, fjs);
             })(document, 'script', 'facebook-jssdk');
         };
 
@@ -229,11 +285,15 @@ var FacebookNewsSource = function (_NewsSource3) {
                 return _this5.rendered;
             };
             $.get("https://graph.facebook.com/" + config.facebook.source + "?fields=posts.limit(" + config.limit + "){permalink_url}&access_token=" + config.facebook.acces_token, function (data) {
-                var post_links = [];
+                var linksArray = [];
+
                 data.posts.data.forEach(function (item) {
-                    post_links.push(item.permalink_url);
+                    linksArray.push(item.permalink_url);
                 });
-                setData(post_links);
+                if (!currentContext.compareWithNewData(linksArray)) {
+                    setData(linksArray);
+                    currentContext.rendered = false;
+                };
                 if (!isRendered()) {
                     renderData();
                 }
@@ -254,11 +314,25 @@ var InstagramNewsSource = function (_NewsSource4) {
         var _this6 = _possibleConstructorReturn(this, (InstagramNewsSource.__proto__ || Object.getPrototypeOf(InstagramNewsSource)).call(this));
 
         var currentContext = _this6;
+        _this6.render = function () {
+            console.log("renderding");
+            (function (d, s, id) {
+                var js,
+                    fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    window.instgrm.Embeds.process();
+                }
+                js = d.createElement(s);js.id = id;
+                js.src = "https://platform.instagram.com/en_US/embeds.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            })(document, 'script', 'instagram-widgets');
+        };
         _this6.createNewsContainer = function () {
             var _this7 = this;
 
             var renderData = function renderData() {
                 _this7.appendNewsContainer();
+                _this7.render();
                 _this7.rendered = true;
             };
             var isRendered = function isRendered() {
@@ -269,14 +343,14 @@ var InstagramNewsSource = function (_NewsSource4) {
             var links = currentContext.getRawData();
             for (var x in links) {
                 $.ajax({
-                    url: 'https://api.instagram.com/oembed?maxwidth=346&url=' + links[x],
+                    url: 'https://api.instagram.com/oembed?maxwidth=346&omitscript=true&url=' + links[x],
                     dataType: 'jsonp',
                     type: 'GET',
                     async: false,
                     success: function success(data) {
                         succed += 1;
                         htmlElementsCollection.push(data.html);
-                        if (succed == config.limit) {
+                        if (succed == links.length) {
                             hideLoader();
                             orderedAppend();
                         }
@@ -315,18 +389,21 @@ var InstagramNewsSource = function (_NewsSource4) {
                 _this8.createNewsContainer();
             };
 
-            var links = [];
             $.ajax({
                 url: 'https://api.instagram.com/v1/users/' + config.instagram.source + '/media/recent', // or /users/self/media/recent for Sandbox
                 dataType: 'jsonp',
                 type: 'GET',
                 data: { access_token: config.instagram.access_token, count: config.limit },
                 success: function success(data) {
-                    var links = [];
+                    console.log(data);
+                    var linksArray = [];
                     for (var x in data.data) {
-                        links.push(data.data[x].link); // - Instagram post URL
+                        linksArray.push(data.data[x].link); // - Instagram post URL
                     }
-                    setData(links);
+                    if (!currentContext.compareWithNewData(linksArray)) {
+                        setData(linksArray);
+                        currentContext.rendered = false;
+                    };
                 },
                 error: function error(data) {
                     console.log(data); // send the error notifications to console

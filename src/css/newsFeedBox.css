@@ -106,7 +106,7 @@ body{
 .buttonshake:hover{
     margin: 0;
     border: 5px solid white;
-    animation-name: none;
+    animation-name: none; !important;
     -webkit-animation-name: none;
     -moz-animation-name: none
 }
@@ -115,6 +115,9 @@ body{
     display: block;
 }
 
+#notificator{
+    display: none;
+}
 
 
 
