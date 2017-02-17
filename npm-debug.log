@@ -10,7 +10,7 @@
 6 silly lifecycle socialfeed_box@1.0.0~pregulp: no script for pregulp, continuing
 7 info lifecycle socialfeed_box@1.0.0~gulp: socialfeed_box@1.0.0
 8 verbose lifecycle socialfeed_box@1.0.0~gulp: unsafe-perm in lifecycle true
-9 verbose lifecycle socialfeed_box@1.0.0~gulp: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;D:\projects\socialfeed\socialfeed_box\node_modules\.bin;C:\Program Files (x86)\Google\Chrome\Application;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\kit\AppData\Local\Microsoft\WindowsApps;
+9 verbose lifecycle socialfeed_box@1.0.0~gulp: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;D:\projects\socialfeed\socialfeed_box\node_modules\.bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\kit\AppData\Local\Microsoft\WindowsApps;
 10 verbose lifecycle socialfeed_box@1.0.0~gulp: CWD: D:\projects\socialfeed\socialfeed_box
 11 silly lifecycle socialfeed_box@1.0.0~gulp: Args: [ '/d /s /c', 'gulp' ]
 12 silly lifecycle socialfeed_box@1.0.0~gulp: Returned: code: 1  signal: null

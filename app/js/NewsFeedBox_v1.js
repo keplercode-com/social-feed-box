@@ -64,8 +64,8 @@ var NewsSource = function NewsSource() {
         return this.rawData;
     };
 
-    this.appendNewsContainer = function (id) {
-        $(id).append(this.getNewsContainer());
+    this.appendNewsContainer = function () {
+        $('#' + config.news_container_id).append(this.getNewsContainer());
     };
     this.rendered = false;
 };
@@ -80,7 +80,6 @@ var RedditNewsSource = function (_NewsSource) {
 
         _this.createNewsContainer = function () {
             var data = this.getRawData();
-            //console.log(data);
             this.setNewsContainer('');
             var html = '';
             for (var index = 0; index < config.limit; index++) {
@@ -110,7 +109,7 @@ var RedditNewsSource = function (_NewsSource) {
                 _this2.createNewsContainer();
             };
             var renderData = function renderData() {
-                _this2.appendNewsContainer('#' + config.news_container_id);
+                _this2.appendNewsContainer();
                 _this2.render();
                 _this2.rendered = true;
             };
@@ -121,8 +120,6 @@ var RedditNewsSource = function (_NewsSource) {
                 url: "https://www.reddit.com/r/" + config.reddit.source + "/" + config.reddit.feedtype + ".json",
                 success: function success(data) {
                     setData(data);
-                    //this.setRawData(data.data.children);
-                    //console.log(this.getRawData());
                     if (!isRendered()) {
                         renderData();
                     }
@@ -161,7 +158,7 @@ var TwitterNewsSource = function (_NewsSource2) {
             twttr.widgets.load();
             twttr.widgets.createTimeline({
                 sourceType: 'profile',
-                screenName: source
+                screenName: config.twitter.source
             }, document.getElementById(config.news_container_id), {
                 width: '350',
                 chrome: 'noheader'
@@ -224,7 +221,7 @@ var FacebookNewsSource = function (_NewsSource3) {
                 _this5.createNewsContainer();
             };
             var renderData = function renderData() {
-                _this5.appendNewsContainer('#' + config.news_container_id);
+                _this5.appendNewsContainer();
                 _this5.render();
                 _this5.rendered = true;
             };
@@ -248,6 +245,100 @@ var FacebookNewsSource = function (_NewsSource3) {
     return FacebookNewsSource;
 }(NewsSource);
 
+var InstagramNewsSource = function (_NewsSource4) {
+    _inherits(InstagramNewsSource, _NewsSource4);
+
+    function InstagramNewsSource() {
+        _classCallCheck(this, InstagramNewsSource);
+
+        var _this6 = _possibleConstructorReturn(this, (InstagramNewsSource.__proto__ || Object.getPrototypeOf(InstagramNewsSource)).call(this));
+
+        var currentContext = _this6;
+        _this6.createNewsContainer = function () {
+            var _this7 = this;
+
+            var renderData = function renderData() {
+                _this7.appendNewsContainer();
+                _this7.rendered = true;
+            };
+            var isRendered = function isRendered() {
+                return _this7.rendered;
+            };
+            var htmlElementsCollection = [];
+            var succed = 0;
+            var links = currentContext.getRawData();
+            for (var x in links) {
+                $.ajax({
+                    url: 'https://api.instagram.com/oembed?maxwidth=346&url=' + links[x],
+                    dataType: 'jsonp',
+                    type: 'GET',
+                    async: false,
+                    success: function success(data) {
+                        succed += 1;
+                        htmlElementsCollection.push(data.html);
+                        if (succed == config.limit) {
+                            hideLoader();
+                            orderedAppend();
+                        }
+                        //$('#form-content').append(data.html);
+                    },
+                    error: function error(data) {
+                        console.log(data); // send the error notifications to console
+                    }
+                });
+            }
+            function orderedAppend() {
+                var tmp = htmlElementsCollection.slice(0); //clone html elements array
+                for (x in htmlElementsCollection) {
+                    for (var y in htmlElementsCollection) {
+                        if (tmp[x].search(links[y]) > 0) {
+                            htmlElementsCollection[y] = tmp[x]; //order it by links
+                        }
+                    }
+                }
+                var html = '';
+                for (x in htmlElementsCollection) {
+                    html += htmlElementsCollection[x]; //append ordered array of html elements
+                }
+                currentContext.setNewsContainer(html);
+                if (!isRendered()) {
+                    renderData();
+                }
+            }
+        };
+
+        _this6.getInfo = function () {
+            var _this8 = this;
+
+            var setData = function setData(data) {
+                _this8.setRawData(data);
+                _this8.createNewsContainer();
+            };
+
+            var links = [];
+            $.ajax({
+                url: 'https://api.instagram.com/v1/users/' + config.instagram.source + '/media/recent', // or /users/self/media/recent for Sandbox
+                dataType: 'jsonp',
+                type: 'GET',
+                data: { access_token: config.instagram.access_token, count: config.limit },
+                success: function success(data) {
+                    var links = [];
+                    for (var x in data.data) {
+                        links.push(data.data[x].link); // - Instagram post URL
+                    }
+                    setData(links);
+                },
+                error: function error(data) {
+                    console.log(data); // send the error notifications to console
+                }
+            });
+        };
+        return _this6;
+    }
+
+    return InstagramNewsSource;
+}(NewsSource);
+
 var NewsFeedFactory = function NewsFeedFactory() {
     this.createNewsSource = function (platform) {
         var newsSource = new NewsSource();
@@ -260,7 +351,7 @@ var NewsFeedFactory = function NewsFeedFactory() {
                     newsSource = new TwitterNewsSource();
                     break;
                 case 'instagram':
-                    newsSource = new InstagramNews();
+                    newsSource = new InstagramNewsSource();
                     break;
                 case 'reddit':
                     newsSource = new RedditNewsSource();
@@ -280,6 +371,4 @@ var NewsFeedFactory = function NewsFeedFactory() {
 
 var factory = new NewsFeedFactory();
 
-var ananas = factory.createNewsSource('facebook');
-
-ananas.getInfo();
+var newsFeedObject = factory.createNewsSource(config.platform);

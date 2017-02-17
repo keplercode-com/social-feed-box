@@ -59,8 +59,8 @@ class NewsSource {
             return this.rawData;
         };
 
-        this.appendNewsContainer = function (id) {
-            $(id).append(this.getNewsContainer());
+        this.appendNewsContainer = function () {
+            $('#'+config.news_container_id).append(this.getNewsContainer());
         };
         this.rendered = false;
     }
@@ -71,7 +71,6 @@ class RedditNewsSource extends NewsSource {
         super();
         this.createNewsContainer = function () {
             let data = this.getRawData();
-            //console.log(data);
             this.setNewsContainer('');
             var html = '';
             for (var index = 0; index < config.limit; index++) {
@@ -97,7 +96,7 @@ class RedditNewsSource extends NewsSource {
                 this.createNewsContainer();
             };
             var renderData = () => {
-                this.appendNewsContainer('#'+config.news_container_id);
+                this.appendNewsContainer( );
                 this.render();
                 this.rendered=true;
             };
@@ -108,8 +107,6 @@ class RedditNewsSource extends NewsSource {
                 url: "https://www.reddit.com/r/" + config.reddit.source + "/" + config.reddit.feedtype + ".json",
                 success: function (data) {
                     setData(data);
-                    //this.setRawData(data.data.children);
-                    //console.log(this.getRawData());
                     if (!isRendered()) {
                        renderData();
                     }
@@ -138,7 +135,7 @@ class TwitterNewsSource extends NewsSource {
             twttr.widgets.createTimeline(
                 {
                     sourceType: 'profile',
-                    screenName:  source
+                    screenName:  config.twitter.source
                 },
                 document.getElementById(config.news_container_id),
                 {
@@ -190,7 +187,7 @@ class FacebookNewsSource extends NewsSource{
                 this.createNewsContainer();
             };
             var renderData = () => {
-                this.appendNewsContainer('#'+config.news_container_id);
+                this.appendNewsContainer( );
                 this.render();
                 this.rendered=true;
             };
@@ -212,6 +209,88 @@ class FacebookNewsSource extends NewsSource{
     }
 }
 
+class InstagramNewsSource extends  NewsSource{
+    constructor(){
+        super();
+        var currentContext = this;
+        this.createNewsContainer = function () {
+            var renderData = () => {
+                this.appendNewsContainer();
+                this.rendered=true;
+            };
+            var isRendered = () =>{
+                return this.rendered;
+            };
+            var htmlElementsCollection=[];
+            var succed=0;
+            var links = currentContext.getRawData();
+            for(var x in links){
+                $.ajax({
+                    url: 'https://api.instagram.com/oembed?maxwidth=346&url='+links[x],
+                    dataType: 'jsonp',
+                    type: 'GET',
+                    async: false,
+                    success: function(data){
+                        succed+=1;
+                        htmlElementsCollection.push(data.html);
+                        if(succed==config.limit){
+                            hideLoader();
+                            orderedAppend();
+                        }
+                        //$('#form-content').append(data.html);
+                    },
+                    error: function(data){
+                        console.log(data); // send the error notifications to console
+                    }
+                });
+            }
+            function orderedAppend() {
+                var tmp=htmlElementsCollection.slice(0); //clone html elements array
+                for(x in htmlElementsCollection){
+                    for(var y in htmlElementsCollection){
+                        if(tmp[x].search(links[y]) > 0){
+                            htmlElementsCollection[y]=tmp[x]; //order it by links
+                        }
+                    }
+                }
+                var html = '';
+                for(x in htmlElementsCollection){
+                    html+=htmlElementsCollection[x]; //append ordered array of html elements
+                }
+                currentContext.setNewsContainer(html);
+                if(!isRendered()){
+                    renderData();
+                }
+            }
+        };
+        
+        this.getInfo = function () {
+            var setData = (data) => {
+                this.setRawData(data);
+                this.createNewsContainer();
+            };
+
+            var links=[];
+            $.ajax({
+                url: 'https://api.instagram.com/v1/users/' + config.instagram.source + '/media/recent', // or /users/self/media/recent for Sandbox
+                dataType: 'jsonp',
+                type: 'GET',
+                data: {access_token: config.instagram.access_token, count: config.limit},
+                success: function(data){
+                    let links= [];
+                    for(var x in data.data ){
+                        links.push(data.data[x].link);// - Instagram post URL
+                    }
+                    setData(links);
+                },
+                error: function(data){
+                    console.log(data); // send the error notifications to console
+                }
+            });
+        }
+    }
+}
+
 var NewsFeedFactory = function () {
     this.createNewsSource = function (platform) {
         var newsSource = new NewsSource();
@@ -224,7 +303,7 @@ var NewsFeedFactory = function () {
                     newsSource = new TwitterNewsSource();
                     break;
                 case 'instagram':
-                    newsSource = new InstagramNews();
+                    newsSource = new InstagramNewsSource();
                     break;
                 case 'reddit':
                     newsSource = new RedditNewsSource();
@@ -245,6 +324,4 @@ var NewsFeedFactory = function () {
 
 var factory = new NewsFeedFactory();
 
-var ananas = factory.createNewsSource('facebook');
-
-ananas.getInfo();
+var newsFeedObject = factory.createNewsSource(config.platform);
