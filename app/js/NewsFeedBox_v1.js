@@ -8,7 +8,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var config = {
     timeout: 10000,
-    platform: 'reddit',
+    platform: 'twitter',
     limit: 10,
     news_container_id: 'form-content',
     facebook: {
@@ -17,7 +17,7 @@ var config = {
         app_id: '217118902086318'
     },
     twitter: {
-        source: 'TechRepublic'
+        source: 'lwawn9'
     },
     instagram: {
         source: 'self',
@@ -198,6 +198,26 @@ var TwitterNewsSource = function (_NewsSource2) {
 
         var _this3 = _possibleConstructorReturn(this, (TwitterNewsSource.__proto__ || Object.getPrototypeOf(TwitterNewsSource)).call(this));
 
+        var currentContext = _this3;
+        _this3.render = function () {
+            if (document.getElementById('twitter-widgets')) {
+                hideLoader();
+                currentContext.rendered = true;
+            }
+        };
+        _this3.createNewsContainer = function () {
+            document.getElementById(config.news_container_id).innerHTML = '';
+            twttr.widgets.createTimeline({
+                sourceType: 'profile',
+                screenName: config.twitter.source
+            }, document.getElementById(config.news_container_id), {
+                width: '350',
+                chrome: 'noheader'
+            }).then(function (el) {
+                currentContext.render();
+                //  console.log(document.getElementById(config.news_container_id).childNodes[1].contentWindow.document.querySelectorAll("div[data-tweet-id")[0].getAttribute("data-tweet-id")); //.body.innerHTML.querySelectorAll("div[data-tweet-id]"));
+            });
+        };
         _this3.getInfo = function () {
             (function (d, s, id) {
                 var js,
@@ -206,20 +226,43 @@ var TwitterNewsSource = function (_NewsSource2) {
                     return;
                 }
                 js = d.createElement(s);js.id = id;
-                js.src = "https://platform.twitter.com/widgets.js";
+                js.src = "https://platform.twitter.com/widgets.js"; //833624898580922368
                 fjs.parentNode.insertBefore(js, fjs);
             })(document, 'script', 'twitter-widgets');
 
-            twttr.widgets.load();
-            twttr.widgets.createTimeline({
-                sourceType: 'profile',
-                screenName: config.twitter.source
-            }, document.getElementById(config.news_container_id), {
-                width: '350',
-                chrome: 'noheader'
-            }).then(function (el) {
-                hideLoader();
-            });
+            if (!currentContext.rendered) {
+                currentContext.createNewsContainer();
+            } else {
+                var element = document.createElement("div"); //;
+                element.setAttribute("id", "temporary");
+                element.style.display = 'none';
+                document.body.appendChild(element);
+                //  console.log(element);
+                twttr.widgets.createTimeline({
+                    sourceType: 'profile',
+                    screenName: config.twitter.source
+                }, element, {
+                    width: '350',
+                    chrome: 'noheader'
+                }).then(function () {
+                    twttr.widgets.load().then(function () {
+                        try {
+                            var currentId = document.getElementById(config.news_container_id).childNodes[0].contentWindow.document.querySelectorAll("div[data-tweet-id")[0].getAttribute("data-tweet-id");
+                            console.log(currentId);
+                            var newId = element.childNodes[0].contentWindow.document.querySelectorAll("div[data-tweet-id")[0].getAttribute("data-tweet-id");
+                            console.log(newId);
+
+                            if (!(currentId === newId)) {
+                                currentContext.createNewsContainer();
+                                startShakingButtonAnimationWithNotification();
+                            }
+                            document.body.removeChild(element);
+                        } catch (err) {
+                            console.log(err);
+                        }
+                    });
+                });
+            }
         };
         return _this3;
     }

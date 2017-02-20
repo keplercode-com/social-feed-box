@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="68bc3a3e-2d43-4352-9bf1-314ff5faa3be" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/js/NewsFeedBox_v1.js" afterPath="$PROJECT_DIR$/app/js/NewsFeedBox_v1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.html" afterPath="$PROJECT_DIR$/src/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/NewsFeedBox_v1.js" afterPath="$PROJECT_DIR$/src/js/NewsFeedBox_v1.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,7 +32,7 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
+            <state relative-caret-position="719">
               <caret line="47" column="15" lean-forward="false" selection-start-line="47" selection-start-column="15" selection-end-line="47" selection-end-column="15" />
               <folding />
             </state>
@@ -44,13 +42,22 @@
       <file leaf-file-name="NewsFeedBox_v1.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/js/NewsFeedBox_v1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="119" column="41" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="41" />
+            <state relative-caret-position="476">
+              <caret line="239" column="73" lean-forward="true" selection-start-line="239" selection-start-column="73" selection-end-line="239" selection-end-column="73" />
               <folding>
-                <element signature="n#NewsSource#0" expanded="false" />
-                <element signature="n#TwitterNewsSource#0" expanded="false" />
+                <element signature="n#!!block;n#contact_window_show#0" expanded="false" />
+                <element signature="n#!!block;n#contact_window_hide#0" expanded="false" />
+                <element signature="n#!!block;n#hideLoader#0" expanded="false" />
+                <element signature="n#!!block;n#stopShakingButtonAnimation#0" expanded="false" />
+                <element signature="n#!!block;n#startShakingButtonAnimation#0" expanded="false" />
+                <element signature="n#!!block;n#startShakingButtonAnimationWithNotification#0" expanded="false" />
+                <element signature="n#!!block;n#hideNotification#0" expanded="false" />
+                <element signature="e#1742#1763#0" expanded="false" />
+                <element signature="e#2316#2402#0" expanded="false" />
+                <element signature="n#RedditNewsSource#0" expanded="false" />
                 <element signature="n#FacebookNewsSource#0" expanded="false" />
-                <element signature="e#12852#13720#0" expanded="false" />
+                <element signature="n#InstagramNewsSource#0" expanded="false" />
+                <element signature="e#15313#16181#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -59,8 +66,8 @@
       <file leaf-file-name="newsFeedBox.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/css/newsFeedBox.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="119" column="1" lean-forward="true" selection-start-line="119" selection-start-column="1" selection-end-line="119" selection-end-column="1" />
+            <state relative-caret-position="17">
+              <caret line="119" column="1" lean-forward="false" selection-start-line="119" selection-start-column="1" selection-end-line="119" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -71,16 +78,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="5" lean-forward="false" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gulpfile.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gulpfile.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="31" column="32" lean-forward="true" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -113,6 +110,7 @@
       <find>init</find>
       <find>id</find>
       <find>js add</find>
+      <find>reques</find>
     </findStrings>
     <replaceStrings>
       <replace>#eb592a</replace>
@@ -169,6 +167,7 @@
         <option value="$PROJECT_DIR$/src/js/NewsFeedBox.js" />
         <option value="$PROJECT_DIR$/src/js/q.js" />
         <option value="$PROJECT_DIR$/src/index.html" />
+        <option value="$PROJECT_DIR$/app/js/q.js" />
         <option value="$PROJECT_DIR$/src/js/NewsFeedBox_v1.js" />
       </list>
     </option>
@@ -261,6 +260,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -393,7 +393,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -409,13 +408,13 @@
     <property name="js.buildTools.gulp.gulp_package_dir" value="D:\projects\socialfeed\socialfeed_box\node_modules\gulp" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\projects\socialfeed\socialfeed_box\app\js" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\projects\socialfeed\socialfeed_box\app\js" />
       <recent name="D:\projects\socialfeed\socialfeed_box\src\js" />
       <recent name="D:\projects\socialfeed\socialfeed_box\app" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\projects\socialfeed\socialfeed_box\app\js" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.NewsFeedBox.js">
@@ -528,8 +527,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="npm.depoy" />
-        <item index="1" class="java.lang.String" itemvalue="npm.gulp" />
+        <item index="0" class="java.lang.String" itemvalue="npm.gulp" />
+        <item index="1" class="java.lang.String" itemvalue="npm.depoy" />
         <item index="2" class="java.lang.String" itemvalue="Node.js.NewsFeedBox.js" />
         <item index="3" class="java.lang.String" itemvalue="Gulp.js.default" />
         <item index="4" class="java.lang.String" itemvalue="npm.test" />
@@ -552,7 +551,8 @@
       <workItem from="1487057916729" duration="19099000" />
       <workItem from="1487145363101" duration="22396000" />
       <workItem from="1487233381475" duration="26072000" />
-      <workItem from="1487317875996" duration="25487000" />
+      <workItem from="1487317875996" duration="25627000" />
+      <workItem from="1487580810812" duration="14832000" />
     </task>
     <task id="LOCAL-00001" summary="'twitter functionality added'">
       <created>1487258032875</created>
@@ -582,23 +582,30 @@
       <option name="project" value="LOCAL" />
       <updated>1487345817651</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="&quot;reddit loader issue fixed&#10;&quot;">
+      <created>1487346284135</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1487346284135</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124568000" />
+    <option name="totallyTimeSpent" value="139540000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.178125" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" x="732" y="252" width="342" height="946" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18020834" sideWeight="0.45737484" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18020834" sideWeight="0.4533153" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18020834" sideWeight="0.5426252" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18020834" sideWeight="0.5466847" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21881607" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -625,15 +632,78 @@
     <MESSAGE value="&quot;facebook features added (via factory)&quot;" />
     <MESSAGE value="&quot;all platforms features provided (via factory)&quot;" />
     <MESSAGE value="&quot;added feature of checking new content and notify user about it on platforms:&#10;facebook, instagram, reddit&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;added feature of checking new content and notify user about it on platforms:&#10;facebook, instagram, reddit&quot;" />
+    <MESSAGE value="&quot;reddit loader issue fixed&#10;&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;reddit loader issue fixed&#10;&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="7" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/js/NewsFeedBox.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="19" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="47" column="15" lean-forward="false" selection-start-line="47" selection-start-column="15" selection-end-line="47" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/NewsFeedBox_v1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1309">
+          <caret line="119" column="41" lean-forward="false" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="41" />
+          <folding>
+            <element signature="n#!!block;n#contact_window_show#0" expanded="false" />
+            <element signature="n#!!block;n#contact_window_hide#0" expanded="false" />
+            <element signature="n#!!block;n#hideLoader#0" expanded="false" />
+            <element signature="n#!!block;n#stopShakingButtonAnimation#0" expanded="false" />
+            <element signature="n#!!block;n#startShakingButtonAnimation#0" expanded="false" />
+            <element signature="n#!!block;n#startShakingButtonAnimationWithNotification#0" expanded="false" />
+            <element signature="n#!!block;n#hideNotification#0" expanded="false" />
+            <element signature="e#1742#1763#0" expanded="false" />
+            <element signature="e#2316#2402#0" expanded="false" />
+            <element signature="n#RedditNewsSource#0" expanded="false" />
+            <element signature="n#FacebookNewsSource#0" expanded="false" />
+            <element signature="n#InstagramNewsSource#0" expanded="false" />
+            <element signature="e#15313#16181#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/newsFeedBox.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2023">
+          <caret line="119" column="1" lean-forward="false" selection-start-line="119" selection-start-column="1" selection-end-line="119" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/css/newsFeedBox.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="5" lean-forward="false" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="32" lean-forward="true" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/js/NewsFeedBox.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
@@ -655,10 +725,19 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#NewsSource#0" expanded="false" />
-            <element signature="n#TwitterNewsSource#0" expanded="false" />
+            <element signature="n#!!block;n#contact_window_show#0" expanded="false" />
+            <element signature="n#!!block;n#contact_window_hide#0" expanded="false" />
+            <element signature="n#!!block;n#hideLoader#0" expanded="false" />
+            <element signature="n#!!block;n#stopShakingButtonAnimation#0" expanded="false" />
+            <element signature="n#!!block;n#startShakingButtonAnimation#0" expanded="false" />
+            <element signature="n#!!block;n#startShakingButtonAnimationWithNotification#0" expanded="false" />
+            <element signature="n#!!block;n#hideNotification#0" expanded="false" />
+            <element signature="e#1742#1763#0" expanded="false" />
+            <element signature="e#2316#2402#0" expanded="false" />
+            <element signature="n#RedditNewsSource#0" expanded="false" />
             <element signature="n#FacebookNewsSource#0" expanded="false" />
-            <element signature="e#12852#13720#0" expanded="false" />
+            <element signature="n#InstagramNewsSource#0" expanded="false" />
+            <element signature="e#15313#16181#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -684,10 +763,19 @@
         <state relative-caret-position="714">
           <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
-            <element signature="n#NewsSource#0" expanded="false" />
-            <element signature="n#TwitterNewsSource#0" expanded="false" />
+            <element signature="n#!!block;n#contact_window_show#0" expanded="false" />
+            <element signature="n#!!block;n#contact_window_hide#0" expanded="false" />
+            <element signature="n#!!block;n#hideLoader#0" expanded="false" />
+            <element signature="n#!!block;n#stopShakingButtonAnimation#0" expanded="false" />
+            <element signature="n#!!block;n#startShakingButtonAnimation#0" expanded="false" />
+            <element signature="n#!!block;n#startShakingButtonAnimationWithNotification#0" expanded="false" />
+            <element signature="n#!!block;n#hideNotification#0" expanded="false" />
+            <element signature="e#1742#1763#0" expanded="false" />
+            <element signature="e#2316#2402#0" expanded="false" />
+            <element signature="n#RedditNewsSource#0" expanded="false" />
             <element signature="n#FacebookNewsSource#0" expanded="false" />
-            <element signature="e#12852#13720#0" expanded="false" />
+            <element signature="n#InstagramNewsSource#0" expanded="false" />
+            <element signature="e#15313#16181#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -863,7 +951,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="1" lean-forward="true" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -871,7 +958,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
           <caret line="117" column="7" lean-forward="false" selection-start-line="117" selection-start-column="1" selection-end-line="117" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -883,10 +969,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/q.js">
+    <entry file="file://$PROJECT_DIR$/src/js/q.js" />
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16655">
-          <caret line="1609" column="849" lean-forward="false" selection-start-line="1609" selection-start-column="845" selection-end-line="1609" selection-end-column="849" />
+        <state relative-caret-position="527">
+          <caret line="31" column="32" lean-forward="true" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="32" />
           <folding />
         </state>
       </provider>
@@ -899,25 +986,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/newsFeedBox.css">
+    <entry file="file://$PROJECT_DIR$/app/js/q.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="119" column="1" lean-forward="true" selection-start-line="119" selection-start-column="1" selection-end-line="119" selection-end-column="1" />
-          <folding />
+        <state relative-caret-position="218">
+          <caret line="1134" column="129" lean-forward="false" selection-start-line="1134" selection-start-column="123" selection-end-line="1134" selection-end-column="129" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+            <element signature="e#389#2469#0" expanded="false" />
+            <element signature="e#2912#3271#0" expanded="false" />
+            <marker date="1487589686259" expanded="true" signature="110004:110030" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+    <entry file="file://$PROJECT_DIR$/src/css/newsFeedBox.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="31" column="32" lean-forward="true" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
+        <state relative-caret-position="17">
+          <caret line="119" column="1" lean-forward="false" selection-start-line="119" selection-start-column="1" selection-end-line="119" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
+        <state relative-caret-position="719">
           <caret line="47" column="15" lean-forward="false" selection-start-line="47" selection-start-column="15" selection-end-line="47" selection-end-column="15" />
           <folding />
         </state>
@@ -925,13 +1017,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/js/NewsFeedBox_v1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="119" column="41" lean-forward="true" selection-start-line="119" selection-start-column="41" selection-end-line="119" selection-end-column="41" />
+        <state relative-caret-position="476">
+          <caret line="239" column="73" lean-forward="true" selection-start-line="239" selection-start-column="73" selection-end-line="239" selection-end-column="73" />
           <folding>
-            <element signature="n#NewsSource#0" expanded="false" />
-            <element signature="n#TwitterNewsSource#0" expanded="false" />
+            <element signature="n#!!block;n#contact_window_show#0" expanded="false" />
+            <element signature="n#!!block;n#contact_window_hide#0" expanded="false" />
+            <element signature="n#!!block;n#hideLoader#0" expanded="false" />
+            <element signature="n#!!block;n#stopShakingButtonAnimation#0" expanded="false" />
+            <element signature="n#!!block;n#startShakingButtonAnimation#0" expanded="false" />
+            <element signature="n#!!block;n#startShakingButtonAnimationWithNotification#0" expanded="false" />
+            <element signature="n#!!block;n#hideNotification#0" expanded="false" />
+            <element signature="e#1742#1763#0" expanded="false" />
+            <element signature="e#2316#2402#0" expanded="false" />
+            <element signature="n#RedditNewsSource#0" expanded="false" />
             <element signature="n#FacebookNewsSource#0" expanded="false" />
-            <element signature="e#12852#13720#0" expanded="false" />
+            <element signature="n#InstagramNewsSource#0" expanded="false" />
+            <element signature="e#15313#16181#0" expanded="false" />
           </folding>
         </state>
       </provider>
